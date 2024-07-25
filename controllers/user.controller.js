@@ -1,4 +1,3 @@
-const { where } = require("sequelize");
 const { user, Sequelize, project } = require("./../models");
 const { Op } = Sequelize.Op;
 let self = {};
