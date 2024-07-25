@@ -7,11 +7,12 @@ self.getAll = async (req, res) => {
         let data = await project.findAll({
             include: [{
                 model: user,
-                as: 'users',
+                as: 'created_by_user',
             }],
         });
         return res.status(200).json({ success: true, count: data.length, data: data });
     } catch (error) {
+        console.log(error);
         res.status(500).json({ success: false, error: error });
     }
 };
@@ -41,6 +42,24 @@ self.createProject = async (req, res) => {
             message: "An error occurred while creating the project",
             error: error,
         });
+    };
+};
+
+self.getProjectByID = async (req, res) => {
+    try {
+        let id = req.params.id;
+        let data = await project.findByPk(id, {
+            where: {
+                id: id,
+            },
+            include: [{
+                model: user,
+                as: 'created_by_user',
+            }],
+        });
+        return res.status(200).json({ success: true, data: data });
+    } catch (error) {
+        return res.status(500).json({ success: false, error: error });
     };
 };
 
