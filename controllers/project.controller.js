@@ -93,6 +93,36 @@ self.updateProject = async (req, res) => {
     } catch (error) {
         return res.status(500).json({ success: false, error: error });
     };
+};
+
+self.deleteProject = async (req, res) => {
+    try {
+        let id = req.params.id;
+        let data = await project.destroy({
+            where: {
+                id: id,
+            },
+        });
+        if (data == 1) {
+            return res.status(200).json({ success: true, message: "Project deleted successfully" });
+        } else {
+            return res.status(404).json({ success: false, message: "Project not found" });
+        }
+    } catch (error) {
+        return res.status(500).json({ success: false, error: error });
+    };
+};
+
+self.deleteAllProjects = async (req, res) => {
+    try {
+        let data = await project.destroy({
+            where: {},
+            truncate: false,
+        });
+        return res.status(200).json({ success: true, message: "All projects deleted successfully" });
+    } catch (error) {
+        return res.status(500).json({ success: false, error: error });
+    }
 }
 
 module.exports = self;
