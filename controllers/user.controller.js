@@ -1,10 +1,16 @@
-const { user, Sequelize } = require("./../models");
+const { where } = require("sequelize");
+const { user, Sequelize, project } = require("./../models");
 const { Op } = Sequelize.Op;
 let self = {};
 
 self.getAll = async (req, res) => {
   try {
-    let data = await user.findAll({});
+    let data = await user.findAll({
+      include: [{
+        model: project,
+        as: "projects",
+      }]
+    });
     return res
       .status(200)
       .json({ success: true, count: data.length, data: data });
@@ -47,7 +53,15 @@ self.createUser = async (req, res) => {
 self.getUserByID = async (req, res) => {
   try {
     let id = req.params.id;
-    let data = await user.findByPk(id);
+    let data = await user.findByPk(id, {
+      where: {
+        id: id,
+      },
+      include: [{
+        model: project,
+        as: "projects",
+      }]
+    });
     if (data) {
       return res.status(200).send({
         success: true,
