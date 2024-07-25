@@ -8,6 +8,7 @@ self.getAll = async (req, res) => {
             include: [{
                 model: user,
                 as: 'created_by_user',
+                attributes: { exclude: ['password', 'createdAt', 'updatedAt'] },
             }],
         });
         return res.status(200).json({ success: true, count: data.length, data: data });
@@ -37,6 +38,7 @@ self.createProject = async (req, res) => {
             data: data,
         });
     } catch (error) {
+        console.log(error);
         return res.status(500).send({
             success: false,
             message: "An error occurred while creating the project",
