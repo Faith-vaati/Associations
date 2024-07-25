@@ -63,4 +63,36 @@ self.getProjectByID = async (req, res) => {
     };
 };
 
+self.getProjectByUserID = async (req, res) => {
+    try {
+        let usr_id = req.params.user_id;
+        let data = await project.findAll({
+            where: {
+                user_id: usr_id,
+            }
+        });
+        return res.status(200).json({ success: true, count: data.length, data: data });
+    } catch (error) {
+        return res.status(500).json({ success: false, error: error });
+    };
+};
+
+self.updateProject = async (req, res) => {
+    try {
+        let id = req.params.id;
+        let data = await project.update(req.body, {
+            where: {
+                id: id,
+            },
+        });
+        if (data == 1) {
+            return res.status(200).json({ success: true, message: "Project updated successfully" });
+        } else {
+            return res.status(404).json({ success: false, message: "Project not found" });
+        }
+    } catch (error) {
+        return res.status(500).json({ success: false, error: error });
+    };
+}
+
 module.exports = self;
