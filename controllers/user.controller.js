@@ -5,10 +5,10 @@ let self = {};
 self.getAll = async (req, res) => {
   try {
     let data = await user.findAll({
-      include: [{
-        model: project,
-        as: "projects",
-      }]
+      // include: [{
+      //   model: project,
+      //   as: "projects",
+      // }]
     });
     return res
       .status(200)

@@ -5,11 +5,11 @@ let self = {};
 self.getAll = async (req, res) => {
     try {
         let data = await project.findAll({
-            include: [{
-                model: user,
-                as: 'created_by_user',
-                attributes: { exclude: ['password', 'createdAt', 'updatedAt'] },
-            }],
+            // include: [{
+            //     model: user,
+            //     as: 'created_by_user',
+            //     attributes: { exclude: ['password', 'createdAt', 'updatedAt'] },
+            // }],
         });
         return res.status(200).json({ success: true, count: data.length, data: data });
     } catch (error) {
@@ -56,10 +56,10 @@ self.getProjectByID = async (req, res) => {
             where: {
                 id: id,
             },
-            include: [{
-                model: user,
-                as: 'created_by_user',
-            }],
+            // include: [{
+            //     model: user,
+            //     as: 'created_by_user',
+            // }],
         });
         return res.status(200).json({ success: true, data: data });
     } catch (error) {
@@ -95,6 +95,7 @@ self.updateProject = async (req, res) => {
             return res.status(404).json({ success: false, message: "Project not found" });
         }
     } catch (error) {
+        console.log(error);
         return res.status(500).json({ success: false, error: error });
     };
 };
