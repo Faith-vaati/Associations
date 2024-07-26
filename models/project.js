@@ -1,15 +1,9 @@
 'use strict';
 const { Model } = require('sequelize');
-const { v4, uuidv4 } = require('uuid');
-
+const { v4: uuidv4 } = require('uuid');
 
 module.exports = (sequelize, DataTypes) => {
   class project extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
     static associate(models) {
       project.belongsTo(models.user, {
         as: "created_by_user",
@@ -21,14 +15,30 @@ module.exports = (sequelize, DataTypes) => {
   project.init({
     id: {
       type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+      allowNull: false,
       primaryKey: true,
-      defaultValue: uuidv4
     },
-    name: DataTypes.STRING,
-    description: DataTypes.STRING,
-    start_date: DataTypes.DATE,
-    end_date: DataTypes.DATE,
-    user_id: DataTypes.INTEGER
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    description: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    start_date: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
+    end_date: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
+    user_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    }
   }, {
     sequelize,
     modelName: 'project',

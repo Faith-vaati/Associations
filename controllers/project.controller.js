@@ -29,6 +29,8 @@ self.createProject = async (req, res) => {
         const newProject = {
             name: req.body.name,
             description: req.body.description,
+            start_date: req.body.start_date,
+            end_date: req.body.end_date,
             user_id: req.body.user_id,
         };
         let data = await project.create(newProject);
