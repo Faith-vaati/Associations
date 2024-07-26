@@ -5,7 +5,7 @@ let self = {};
 
 self.getAll = async (req, res) => {
     try {
-        let data = await profile.findAll({
+        let data = await Profile.findAll({
             include: [{
                 model: user,
                 as: 'user',
@@ -46,5 +46,16 @@ self.createProfile = async (req, res) => {
         });
     };
 };
+
+self.getUsersProfile = async (req, res) => {
+    try {
+
+    } catch (error) {
+        return res.status(500).send({
+            success: false,
+            message: "An error occurred while fetching the profile",
+        })
+    }
+}
 
 module.exports = self;
