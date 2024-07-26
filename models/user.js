@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'user_id',
         onDelete: 'CASCADE'
       })
-      user.hasOne(models.profile, {
+      user.hasOne(models.Profile, {
         as: "profile",
         foreignKey: 'user_id',
         onDelete: 'CASCADE'
