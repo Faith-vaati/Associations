@@ -36,7 +36,34 @@ sequelize db:migrate
 # Seed the database (optional)
 sequelize db:seed:all
 
+# Seed a specific seeder e.g the project seeder (replace YYYYMMDDHHMMSS with tha date appearing in the seeder file)
+sequelize db:seed --seed YYYYMMDDHHMMSS-seed-projects.js
+
 # Start the application
 npm run dev
 ```
 
+## Usage
+To run the app
+
+```bash
+# Example API call using curl
+curl -X GET http://localhost:8080/api/users
+```
+
+## Features
+List of features and functionalities of the application.
+
+- User authentication and authorization
+- CRUD operations for users and projects
+- UUID-based IDs
+- Timestamps for created and updated records
+- Relationships between users and projects
+
+## End Points
+Detailed information about the API endpoints.
+
+### Users
+- GET /api/users: Get all users
+- GET /api/users/:id: Get a specific user by ID
+- `POST /api/users: Create a new user
