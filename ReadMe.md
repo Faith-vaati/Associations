@@ -66,4 +66,88 @@ Detailed information about the API endpoints.
 ### Users
 - GET /api/users: Get all users
 - GET /api/users/:id: Get a specific user by ID
-- `POST /api/users: Create a new user
+- POST /api/users: Create a new user
+- PUT /api/users/:id: Update a user by ID
+- DELETE /api/users/:id: Delete a user by ID
+- DELETE /api/users/all: Delete all users
+
+### Projects
+- GET /api/projects: Get all projects
+- GET /api/projects/:id: Get a specific project by ID
+- POST /api/projects: Create a new project
+- PUT /api/projects/:id: Update a project by ID
+- DELETE /api/projects/:id: Delete a project by ID
+- DELETE /api/projects/all: Delete all projects
+
+## Models
+Description of the database models and their attributes.
+
+### users
+- id: UUID (primary key)
+- firstName: STRING
+- lastName: STRING
+- email: STRING
+- age: INTEGER
+- createdAt: DATE
+- updatedAt: DATE
+
+### projects
+- id: UUID (primary key)
+- name: STRING
+- description: STRING
+- start_date: DATE
+- end_date: DATE
+- user_id: UUID (foreign key)
+- createdAt: DATE
+- updatedAt: DATE
+
+
+## Seeders
+Instructions on how to use the seeders to populate the database with initial data.
+
+```bash
+# Run all seeders
+sequelize db:seed:all
+
+
+# Run a specific seeder
+sequelize db:seed --seed YYYYMMDDHHMMSS-seed-users.js
+```
+
+## Technologies
+List of technologies used in the project.
+- Node.js
+- Express.js
+- Sequelize
+- PostgreSQL
+- UUID
+- CORS
+- dotenv
+
+## Contributing
+Instructions on how to contribute to the project.
+
+1. Fork the repository
+2. Create a new branch (git checkout -b feature-branch)
+3. Make your changes
+4. Commit your changes (git commit -m 'Add some feature')
+5. Push to the branch (git push origin feature-branch)
+6. Open a pull request
+
+## License
+This project is licensed under the MIT License - see the [LICENSE]() file for details.
+
+## Contact
+- Email: wambukeren@gmail.com
+- GitHub: MungaiKeren
+
+```bash
+### Tips for Writing the README
+
+1. **Be Clear and Concise**: Use simple language and be as clear as possible.
+2. **Use Code Blocks**: For commands, code snippets, and configurations, use code blocks to improve readability.
+3. **Include Examples**: Provide examples of how to use the application.
+4. **Keep it Updated**: Regularly update the README to reflect any changes in the project.
+5. **Add Screenshots**: If applicable, add screenshots to demonstrate the functionality.
+
+```
