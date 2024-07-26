@@ -36,7 +36,7 @@ sequelize db:migrate
 # Seed the database (optional)
 sequelize db:seed:all
 
-# Seed a specific seeder e.g the project seeder (replace YYYYMMDDHHMMSS with tha date appearing in the seeder file)
+# Seed a specific seeder e.g the project seeder (replace YYYYMMDDHHMMSS with the date appearing in the seeder file)
 sequelize db:seed --seed YYYYMMDDHHMMSS-seed-projects.js
 
 # Start the application
