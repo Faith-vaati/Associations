@@ -1,6 +1,7 @@
 const { user, Sequelize, project } = require("./../models");
 const { Op } = Sequelize.Op;
 const bycrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 let self = {};
 
 self.getAll = async (req, res) => {
@@ -52,6 +53,58 @@ self.createUser = async (req, res) => {
   }
 };
 
+self.login = async (req, res) => {
+  try {
+    if (!req.body.email || !req.body.password) {
+      return res.status(400).send({
+        success: false,
+        message: "Please provide an email and a password",
+      });
+    }
+    let data = await user.findOne({
+      where: {
+        email: req.body.email,
+      },
+    });
+    if (!data) {
+      return res.status(404).send({
+        success: false,
+        message: "User not found",
+      });
+    }
+    // compare the passwords
+    let passwordIsValid = bycrypt.compareSync(req.body.password, data.password);
+    if (!passwordIsValid) {
+      return res.status(401).send({
+        success: false,
+        message: "Invalid password",
+      });
+    }
+    // generate token
+    let token = jwt.sign({ 
+      id: data.id,
+      email: data.email,
+      firstName: data.firstName,
+      lastName: data.lastName,
+    }, 
+    process.env.JWT_SECRET, {
+      expiresIn: 86400, // 24 hours
+    });
+    return res.status(200).send({
+      success: true,
+      message: "User logged in successfully",
+      token: token,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send({
+      success: false,
+      message: "An error occurred while logging in",
+      error: error,
+    });
+  };
+}
+
 // get single user by id
 self.getUserByID = async (req, res) => {
   try {
@@ -97,7 +150,7 @@ self.updateUser = async (req, res) => {
     if (body.password) {
       body.password = bycrypt.hashSync(body.password, 10);
     }
-    
+
     let data = await user.update(body, {
       where: {
         id: id,
