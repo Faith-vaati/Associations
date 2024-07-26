@@ -73,7 +73,11 @@ self.getProjectByUserID = async (req, res) => {
         let data = await project.findAll({
             where: {
                 user_id: usr_id,
-            }
+            },
+            include: [{
+                model: user,
+                as: 'created_by_user',
+            }],
         });
         return res.status(200).json({ success: true, count: data.length, data: data });
     } catch (error) {
