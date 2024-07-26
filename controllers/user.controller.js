@@ -1,14 +1,15 @@
 const { user, Sequelize, project } = require("./../models");
 const { Op } = Sequelize.Op;
+const bycrypt = require("bcrypt");
 let self = {};
 
 self.getAll = async (req, res) => {
   try {
     let data = await user.findAll({
-      // include: [{
-      //   model: project,
-      //   as: "projects",
-      // }]
+      include: [{
+        model: project,
+        as: "projects",
+      }]
     });
     return res
       .status(200)
@@ -25,12 +26,15 @@ self.createUser = async (req, res) => {
       message: "Please provide a first name and a last name",
     });
   }
+  // hash the password
+  const hashed_password = bycrypt.hashSync(req.body.password, 10);
+
   try {
     const newUser = {
       firstName: req.body.firstName,
       lastName: req.body.lastName,
       email: req.body.email,
-      password: req.body.password,
+      password: hashed_password,
       age: req.body.age,
     };
     let data = await user.create(newUser);
@@ -88,6 +92,12 @@ self.updateUser = async (req, res) => {
   try {
     let id = req.params.id;
     let body = req.body;
+
+    // if password is provided, hash it
+    if (body.password) {
+      body.password = bycrypt.hashSync(body.password, 10);
+    }
+    
     let data = await user.update(body, {
       where: {
         id: id,
