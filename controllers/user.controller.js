@@ -103,6 +103,38 @@ self.login = async (req, res) => {
       error: error,
     });
   };
+};
+
+// generate otp
+self.generateOTP = async (req, res) => {
+  try {
+    const otp = Math.floor(100000 + Math.random() * 900000); // Generate 6-digit OTP
+    const userid = req.params.id;
+
+    // save the OTP to the user table
+    let data = await user.update({ otp: otp }, {
+      where: {
+        id: userid,
+      },
+    });
+    if (data[0] === 0) {
+      return res.status(404).send({
+        success: false,
+        message: "User not found",
+      });
+    }
+    return res.status(200).send({
+      success: true,
+      message: "OTP generated successfully",
+      otp: otp,
+    });
+  } catch (error) {
+    return res.status(500).send({
+      success: false,
+      message: "An error occurred while generating OTP",
+      error: error,
+    });
+  }
 }
 
 // get single user by id
