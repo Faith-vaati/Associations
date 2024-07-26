@@ -112,17 +112,20 @@ self.generateOTP = async (req, res) => {
     const userid = req.params.id;
 
     // save the OTP to the user table
-    let data = await user.update({ otp: otp }, {
-      where: {
-        id: userid,
-      },
-    });
-    if (data[0] === 0) {
-      return res.status(404).send({
-        success: false,
-        message: "User not found",
-      });
-    }
+    // let data = await user.update({ otp: otp }, {
+    //   where: {
+    //     id: userid,
+    //   },
+    // });
+
+    // console.log(data);
+
+    // if (data[0] === 0) {
+    //   return res.status(404).send({
+    //     success: false,
+    //     message: "User not found",
+    //   });
+    // }
     return res.status(200).send({
       success: true,
       message: "OTP generated successfully",
