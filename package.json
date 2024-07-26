@@ -21,6 +21,7 @@
     "sequelize-cli": "^6.6.2"
   },
   "dependencies": {
+    "dotenv": "^16.4.5",
     "uuidv4": "^6.2.13"
   }
 }
