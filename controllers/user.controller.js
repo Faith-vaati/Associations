@@ -1,4 +1,4 @@
-const { user, Sequelize, project } = require("./../models");
+const { user, Sequelize, project, Profile } = require("./../models");
 const { Op } = Sequelize.Op;
 const bycrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
@@ -9,7 +9,10 @@ self.getAll = async (req, res) => {
     let data = await user.findAll({
       include: [{
         model: project,
-        as: "projects",
+        as: "projects",       
+      },{
+        model: Profile,
+        as: "profile",
       }]
     });
     return res
@@ -151,7 +154,12 @@ self.getUserByID = async (req, res) => {
       include: [{
         model: project,
         as: "projects",
-      }]
+      },
+      {
+        model: Profile,
+        as: "profile",
+      }
+      ]
     });
     if (data) {
       return res.status(200).send({
@@ -167,6 +175,7 @@ self.getUserByID = async (req, res) => {
       });
     }
   } catch (error) {
+    console.log(error);
     return res.status(500).send({
       success: false,
       message: "An error occurred while retrieving the user",
