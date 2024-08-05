@@ -11,6 +11,11 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Tasks.belongsTo(models.project, {
+        as: "project",
+        foreignKey: 'project_id',
+        onDelete: 'CASCADE'
+      });
     }
   }
   Tasks.init({

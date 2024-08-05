@@ -9,6 +9,11 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'user_id',
         onDelete: 'CASCADE'
       });
+      project.hasMany(models.Tasks, {
+        as: "tasks",
+        foreignKey: 'project_id',
+        onDelete: 'CASCADE'
+      })
     }
   }
   project.init({
