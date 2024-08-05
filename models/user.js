@@ -15,12 +15,17 @@ module.exports = (sequelize, DataTypes) => {
         as: "projects",
         foreignKey: 'user_id',
         onDelete: 'CASCADE'
-      })
+      });
       user.hasOne(models.Profile, {
         as: "profile",
         foreignKey: 'user_id',
         onDelete: 'CASCADE'
-      })
+      });
+      user.hasMany(models.Comment, {
+        as: "comments",
+        foreignKey: 'user_id',
+        onDelete: 'CASCADE'
+      });
     }
   }
   user.init({

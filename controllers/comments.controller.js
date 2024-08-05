@@ -1,4 +1,4 @@
-const { Comments, Tasks, user} = require("./../models");
+const { Comment, Tasks, user} = require("./../models");
 
 const self = {};
 
@@ -15,13 +15,14 @@ self.create = async (req, res) => {
             task_id: req.body.task_id,
             user_id: req.body.user_id
         }
-        let data = await Comments.create(newComment);
+        let data = await Comment.create(newComment);
         return res.status(201).json({
             success: true,
             message: "Comment created successfully",
             data: data
         })
     } catch (error) {
+        console.log(error);
         return res.status(500).json({
             success: false,
             message: "Failed to create comment"
@@ -31,7 +32,7 @@ self.create = async (req, res) => {
 
 self.getAll = async (req, res) => {
     try {
-        const data = await Comments.findAll({
+        const data = await Comment.findAll({
             include: [{
                 model: Tasks,
                 as: "task",

@@ -16,6 +16,11 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'project_id',
         onDelete: 'CASCADE'
       });
+      Tasks.hasMany(models.Comment, {
+        as: "comments",
+        foreignKey: 'task_id',
+        onDelete: 'CASCADE'
+      });
     }
   }
   Tasks.init({
