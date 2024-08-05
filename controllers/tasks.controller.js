@@ -1,4 +1,4 @@
-const { Tasks, project } = require('./../models');
+const { Tasks, project, Comment } = require('./../models');
 
 let self = {};
 
@@ -39,7 +39,13 @@ self.getAllTasks = async (req, res) => {
                 model: project,
                 as: 'project',
                 attributes: { exclude: ['createdAt', 'updatedAt'] },
-            }],
+            },
+            {
+                model: Comment,
+                as: 'comments',
+                attributes: { exclude: ['commentID', 'task_id', 'updatedAt'] },
+            }
+        ],
         });
         return res.status(200).json({
             success: true,
