@@ -1,4 +1,4 @@
-const { Tasks, project, Comment } = require('./../models');
+const { Tasks, project, Comment, user } = require('./../models');
 
 let self = {};
 
@@ -44,6 +44,11 @@ self.getAllTasks = async (req, res) => {
                 model: Comment,
                 as: 'comments',
                 attributes: { exclude: ['commentID', 'task_id', 'updatedAt'] },
+                include: [{
+                    model: user,
+                    as: 'user',
+                    attributes: { exclude: ['password', 'createdAt', 'updatedAt']},
+                }]
             }
         ],
         });
