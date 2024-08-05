@@ -21,11 +21,13 @@ app.get("/", (req, res) => {
 const users = require("./routes/users.routes");
 const projects = require("./routes/projects.routes");
 const profile = require("./routes/profile.routes");
+const tasks = require("./routes/tasks.routes");
 
 // Use routes
 app.use("/api", users);
 app.use("/api", projects);
 app.use("/api", profile);
+app.use("/api", tasks);
 
 // Sequelize connection setup
 const { Sequelize } = require('sequelize');

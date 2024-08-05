@@ -1,4 +1,4 @@
-const { project, user, Sequelize } = require('./../models');
+const { project, user, Tasks, Sequelize } = require('./../models');
 const { Op } = Sequelize.Op;
 let self = {};
 
@@ -9,7 +9,13 @@ self.getAll = async (req, res) => {
                 model: user,
                 as: 'created_by_user',
                 attributes: { exclude: ['password', 'createdAt', 'updatedAt'] },
-            }],
+            },
+            {
+                model: Tasks,
+                as: 'tasks',
+                attributes: { exclude: ['createdAt', 'updatedAt'] },
+            }
+        ],
         });
         return res.status(200).json({ success: true, count: data.length, data: data });
     } catch (error) {
