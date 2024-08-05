@@ -41,6 +41,11 @@ self.getAllTasks = async (req, res) => {
                 attributes: { exclude: ['createdAt', 'updatedAt'] },
             }],
         });
+        return res.status(200).json({
+            success: true,
+            count: data.length,
+            data: data,
+        });
     } catch (error) {
         return res.status(500).send({
             success: false,
@@ -48,3 +53,5 @@ self.getAllTasks = async (req, res) => {
         })
     }
 };
+
+module.exports = self;
